@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.4.RELEASE</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>xyz.cquan</groupId>
+    <artifactId>cquan-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>cquan-core</module>
+        <module>cquan-test</module>
+        <module>cquan-web</module>
+        <module>cquan-web-test</module>
+    </modules>
+
+    <properties>
+        <java.version>1.8</java.version>
+
+        <cquan.version>1.0-SNAPSHOT</cquan.version>
+        <druid.version>1.1.1</druid.version>
+        <junit.version>4.12</junit.version>
+        <mysql-connector.version>6.0.6</mysql-connector.version>
+        <spring-boot.version>1.5.4.RELEASE</spring-boot.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- 引用内部包 -->
+            <dependency>
+                <groupId>xyz.cquan</groupId>
+                <artifactId>cquan-core</artifactId>
+                <version>${cquan.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xyz.cquan</groupId>
+                <artifactId>cquan-web</artifactId>
+                <version>${cquan.version}</version>
+            </dependency>
+
+            <!-- 引用第三方jar包 -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- 用户于依赖模块里的资源文件css、js、图片等打包到项目中 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>unpack</id>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>unpack</goal>
+                            </goals>
+                            <configuration>
+                                <artifactItems>
+                                    <artifactItem>
+                                        <groupId>xyz.cquan</groupId>
+                                        <artifactId>cquan-web</artifactId>
+                                        <version>${cquan.version}</version>
+                                        <type>jar</type>
+                                        <overWrite>false</overWrite>
+                                        <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                                        <includes>**/*.js,**/*.css</includes>
+                                    </artifactItem>
+                                </artifactItems>
+                                <includes>**/*.js,**/*.css</includes>
+                                <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                                <overWriteReleases>false</overWriteReleases>
+                                <overWriteSnapshots>true</overWriteSnapshots>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
