@@ -67,7 +67,7 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!-- 用户于依赖模块里的资源文件css、js、图片等打包到项目中 -->
+                <!-- 用于将依赖模块里的资源文件css、js、图片等打包到项目中 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
